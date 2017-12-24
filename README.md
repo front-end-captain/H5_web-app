@@ -1,6 +1,9 @@
 ### 概述
 运用 HTML5，CSS3，JS，采用组件式开发模式，使用面向对象编程思想，开发 Web App 全站，实现不同类型的 HTML5 动态数据报告。
 
+### 效果预览
+![效果预览](./H5_web_app.gif)
+
 ### 主要功能
 1. 首页载入动画
 2. 滑动切换页面
@@ -25,8 +28,4 @@ page --- component 每一个页面对应一个 page, page 中的每一个组件�
     实现组织 page 和 component 的功能 方便任意添加 page / component
 5. 图表组件 ComponentBar ComponentPolyline ComponentRadar ComponentPie ComponentRing ...
 6. loading 功能
-7. 功能整合
-
-### 效果预览
-
-![效果预览](./H5_web_app.gif)
+7. 组件、功能整合
