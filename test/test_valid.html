@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="./../node_modules/fullpage.js/dist/jquery.fullpage.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        .component {
+           
+            margin: 20px 0;
+            background-color: #ccc;
+            display: none;
+        }
+    </style>
+    <script src="./../node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="./../node_modules/fullpage.js/dist/jquery.fullpage.js"></script>
+</head>
+<body>
+
+    <!-- 测试 fullpage.js 切换页面 以及 页面和组件的出场、进场动画 -->    
+    <div id="app">
+        <div id="page_1" class="page section">
+            <div class="component">logo</div>
+            <div class="component">slogan</div>
+        </div>
+        <div id="page_2" class="page section">
+            <div class="component">描述信息</div>
+        </div>
+        <div id="page_3" class="page section">
+            <div class="component">柱状图</div>
+        </div>
+    </div>
+    
+    <script>
+        $(document).ready( function () {
+            $( "#app" ).fullpage({
+                onLeave: function ( index, nextIndex, direction ) {
+                    $( "#app" ).find( ".page" ).eq( index - 1 ).trigger( "onLeave" );
+                },
+                afterLoad: function ( anchorLink, index ) {
+                    $( "#app" ).find( ".page" ).eq( index - 1 ).trigger( "afterLoad" );
+                }
+            });
+            $( ".page" ).on( "onLeave", function () {
+                console.log( this.id + " onLeave" );
+
+                // DOM 事件的循环传播 - 死循环
+                // 直接进行事件触发 会造成事件的死循环 （由于事件冒泡）
+                // 使用 triggerHandle 但是会造成只加载一个组件
+                // 或者在组件中 返回一个假值 阻止事件冒泡
+                $( this ).find( ".component" ).trigger( "onLeave" );
+            });
+            $( ".page" ).on( "afterLoad", function () {
+                console.log( this.id + " afterLoad" );
+                $( this ).find( ".component" ).trigger( "afterLoad" );
+            });
+            $( ".component" ).on( "onLeave", function ( event ) {
+                $( this ).fadeOut();
+                return false;
+            })
+            $( ".component" ).on( "afterLoad", function () {
+                $( this ).fadeIn();
+                return false;
+            })
+        })
+    </script>
+</body>
+</html>

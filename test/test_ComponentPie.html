@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <script src="./../node_modules/jquery/dist/jquery.js"></script>
+
+    <link rel="stylesheet" href="./../src/css/PublicComponent.css">
+    <script src="./../src/js/PublicComponent.js"></script>
+
+    <link rel="stylesheet" href="./../src/css/ComponentPie.css">
+    <script src="./../src/js/ComponentPie.js"></script>
+
+    <style>
+        html, body {
+            width: 100%;
+            height: 100%;
+        }
+        #page {
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 测试柱饼图组件 -->
+    <div id="page"></div>
+
+    <script>
+            var cfg = {
+                type : 'pie',
+                
+                width : 400,
+                height : 400,
+
+                data:[
+                    ['Js' , .7  ,'#ff7676'],
+                    ['CSS3' , .01 ],
+                    ['HTML5' , .01  ],
+                    ['PHP' , .13  ],
+                    ['jQuery' , .15 ]
+                ],
+                css: {
+                    top:100,
+                    opacity:0
+                },
+                in:{
+                    opacity: 1,
+                    top: 200,
+                },
+                out:{
+                    opacity: 0,
+                    top: 100,
+                },
+                center: true,
+            };
+
+            var com = new ComponentPie( "bar", cfg );
+            $( "#page" ).append( com );
+            
+            var leave = true;
+            $( document.body ).on( "click", function () {
+                leave = !leave;
+                $( ".app_component" ).trigger( leave ? "onLeave" : "afterLoad" );
+            })
+    </script>
+</body>
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <!-- fullpage.js 脚本资源 -->
+    <link rel="stylesheet" href="./../node_modules/fullpage.js/dist/jquery.fullpage.css">
+    <script src="./../node_modules/jquery/dist/jquery.js"></script>
+    <script src="./../node_modules/fullpage.js/dist/jquery.fullpage.js"></script>
+
+    <!-- 公用组件 -->
+    <link rel="stylesheet" href="./../src/css/PublicComponent.css">
+    <script src="./../src/js/PublicComponent.js"></script>
+
+    <!-- 应用组件 -->
+    <link rel="stylesheet" href="./../src/css/App.css">
+    <script src="./../src/js/App.js"></script>
+
+
+</head>
+<body>
+    
+    <!-- 测试进行内容管理的应用组件 -->
+    <script>
+        /* 
+        type: "base",
+        width: 514,
+        height: 306,
+        bg: "./../src/image/people.png",
+        css: { bottom: 0, opacity: 0 },
+        center: true,
+        in: { bottom: 80, opacity: 1 },
+        out: { bottom: 0, opacity: 0 }
+        */
+        var app = new App();
+        app
+            .addPage( "home" )
+                .addComponent( "logo", {
+                    type: "base",
+                    width: 424,
+                    height: 106,
+                    bg: "./../src/image/logo.png",
+                    css: {
+                        top: 0,
+                        backgroundColor: "red",
+                        opacity: 0
+                    },
+                    in: { top: 238 / 2, opacity: 1 },
+                    out: { top: 0, opacity: 0 },
+                    center: true
+                })
+                .addComponent( "slogan", {
+                    type: "base",
+                    width: 366,
+                    height: 100,
+                    bg: "./../src/image/slogn.png",
+                    css: {
+                        top: 0,
+                        opacity: 0
+                    },
+                    in: { top: 432 / 2, opacity: 1 },
+                    out: { top: 0, opacity: 0 },
+                    center: true
+                })
+            .addPage( "desc" )
+                .addComponent( "text", {
+                    text: "详情页",
+                    css: { opacity: 0 },
+                    in: { opacity: 1 },
+                    out: { opacity: 0 }
+
+                } )
+            .addPage( "bar", "bar" )
+            .loader()
+    </script>
+</body>
+</html>

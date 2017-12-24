@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>测试公用组件</title>
+    <link rel="stylesheet" href="./../src/css/PublicComponent.css">
+    <style>
+        html, body {
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+    
+    <div id="page"></div>
+
+    <script src="./../node_modules/jquery/dist/jquery.js"></script>
+    <script>
+        var PublicComponent = function ( name, config ) {   
+            var cfg = config || {};
+
+            
+            var id = "app_component_" + Math.random().toString().replace( ".", "_" );
+            var className = "app_component_" + name;
+            var classType = config.type && "app_component_" + config.type;
+
+            var component = $( "<div id='"+ id +"' class='app_component " + className + " "+ classType +"'></div>" )
+
+            // 内容
+            config.text && component.text( config.text );
+
+            // 宽高
+            config.width && component.width( config.width / 2 );
+            config.height && component.height( config.height / 2 );
+
+            // css 样式
+            config.css && component.css( config.css );
+
+            // 背景图片
+            config.bg && component.css( {
+                backgroundImage: "url( './../src/image/people.png' )"
+            });
+
+            // 居中
+            if ( config.center ) {
+                component.css( {
+                    left: "50%",
+                    transform: "translateX( -50% )"
+                })
+            }
+
+            component.on( "afterLoad", function () {
+                setTimeout( function () {
+                    component.addClass( classType + "_afterLoad" ).removeClass( classType + "_leave" );
+                    config.in && component.animate( config.in );
+                }, config.delay || 0 );
+
+                // 阻止事件冒泡
+                return false;
+            })
+            component.on( "onLeave", function () {
+                setTimeout( function () {
+                    component.addClass( classType + "_leave" ).removeClass( classType + "_afterLoad" );
+                    config.out && component.animate( config.out );
+                }, config.delay || 0 )
+
+                // 阻止事件冒泡
+                return false;
+            })
+
+            return component;
+        }
+
+        var com = new PublicComponent( "customName", {
+            type: "base",
+            width: 514,
+            height: 306,
+            bg: "./../src/image/people.png",
+            css: { bottom: 0, opacity: 0 },
+            center: true,
+            in: { bottom: 80, opacity: 1 },
+            out: { bottom: 0, opacity: 0 }
+        } );
+        $( "#page" ).append( com );
+
+        var leave = true;
+        $( document.body ).on( "click", function () {
+            leave = !leave;
+            $( ".app_component" ).trigger( leave ? "onLeave" : "afterLoad" );
+        })
+    </script>
+</body>
+</html>
